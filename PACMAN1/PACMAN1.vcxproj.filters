@@ -18,6 +18,7 @@
     <ClCompile Include="Origem.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="PacManOBJ.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
@@ -38,5 +39,7 @@
     <ClInclude Include="Labirinto.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+=======
+>>>>>>> 2e4526d4057bd4db1c6e3c08b6b831a2a8693776
   </ItemGroup>
 </Project>
