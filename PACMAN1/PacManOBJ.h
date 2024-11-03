@@ -1,4 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include <string>
+
+using namespace sf;
+using namespace std;
 
 enum class Direcao {
     CIMA,
@@ -6,29 +10,53 @@ enum class Direcao {
     ESQUERDA,
     DIREITA
 };
+
 class PacMan {
 private:
     Sprite sprite;           // Sprite do Pac-Man para renderização
     Texture texture;         // Textura do Pac-Man
     float speed;             // Velocidade de movimento do Pac-Man
-    Vector2f direction;      // Direção atual do Pac-Man
+    Direcao direction;       // Direção atual do Pac-Man
 
 public:
-    // Construtor
-    PacMan(float initialX, float initialY, float initialSpeed, const string& textureFile);
+    PacMan(float initialX, float initialY, float initialSpeed, const string& textureFile)
+        : speed(initialSpeed), direction(Direcao::DIREITA) {
+        carregarTextura(textureFile);
+        sprite.setPosition(initialX, initialY);
+    }
 
-    // Função para carregar a textura e inicializar o sprite
-    bool carregarTextura(const string& textureFile);
+    bool carregarTextura(const string& textureFile) {
+        if (!texture.loadFromFile(textureFile)) {
+            return false;
+        }
+        sprite.setTexture(texture);
+        return true;
+    }
 
-    // Atualizar posição baseado na direção
-    void atualizar(float deltaTime);
+    void atualizar(float deltaTime) {
+        Vector2f movimento(0.0f, 0.0f);
+        switch (direction) {
+        case Direcao::CIMA:    movimento.y = -speed * deltaTime; break;
+        case Direcao::BAIXO:   movimento.y = speed * deltaTime; break;
+        case Direcao::ESQUERDA: movimento.x = -speed * deltaTime; break;
+        case Direcao::DIREITA: movimento.x = speed * deltaTime; break;
+        }
+        sprite.move(movimento);
+    }
 
-    // Renderizar o Pac-Man
-    void renderizar(RenderWindow& window);
+    void renderizar(RenderWindow& window) {
+        window.draw(sprite);
+    }
 
-    // Função para obter posição
-    Vector2f getPosition() const;
+    Vector2f getPosition() const {
+        return sprite.getPosition();
+    }
 
-    // Função para definir posição (útil para resetar ou reposicionar)
-    void setPosition(float x, float y);
+    void setPosition(float x, float y) {
+        sprite.setPosition(x, y);
+    }
+
+    void setDirecao(Direcao novaDirecao) {
+        direction = novaDirecao;
+    }
 };
