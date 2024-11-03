@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <string>
+#include <vector>
 
 using namespace sf;
 using namespace std;
@@ -52,12 +53,12 @@ public:
     }
 
     // Renderizar o fantasma
-    void renderizar(RenderWindow& window) {
+    void renderizarFantasma(RenderWindow& window) {
         window.draw(sprite);
     }
 
     // Resetar posição para a posição inicial
-    void resetarPosicao() {
+    void resetarPosicaoFantasma() {
         sprite.setPosition(posicaoInicial);
     }
 
@@ -66,3 +67,11 @@ public:
         return sprite.getPosition();
     }
 };
+
+// Função de exemplo para instanciar os fantasmas com diferentes texturas
+void inicializarFantasmas(vector<Fantasma>& fantasmas) {
+    fantasmas.emplace_back(400, 300, 80.0f, "Fantasma/b-1.png");
+    fantasmas.emplace_back(400, 300, 80.0f, "Fantasma/p-1.png");
+    fantasmas.emplace_back(400, 300, 80.0f, "Fantasma/r-0.png");
+    fantasmas.emplace_back(400, 300, 80.0f, "Fantasma/y-0.png");
+}
